@@ -1,4 +1,4 @@
-package com.hfad.telegram
+package com.hfad.telegram.ui.fragments
 
 
 import android.os.Bundle
@@ -27,8 +27,14 @@ abstract class ViewBindingFragment<T : ViewBinding>(
         return binding.root
     }
 
+
+    override fun onStart() {
+        super.onStart()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }
