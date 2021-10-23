@@ -9,15 +9,11 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/mainToolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/design_default_color_primary"
-        android:elevation="4dp"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        style="@style/mainToolbar" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/dataContainer"
