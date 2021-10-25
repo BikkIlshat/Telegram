@@ -37,4 +37,6 @@ abstract class ViewBindingFragment<T : ViewBinding>(
         _binding = null
     }
 
+
+
 }

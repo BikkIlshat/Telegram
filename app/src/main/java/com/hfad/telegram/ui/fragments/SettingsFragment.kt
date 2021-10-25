@@ -5,7 +5,8 @@ import android.view.MenuInflater
 import com.hfad.telegram.R
 import com.hfad.telegram.databinding.FragmentSettingsBinding
 
-class SettingsFragment : ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate){
+class SettingsFragment :
+    ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
 
     override fun onResume() {
         super.onResume()
@@ -13,6 +14,6 @@ class SettingsFragment : ViewBindingFragment<FragmentSettingsBinding>(FragmentSe
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        activity?.menuInflater?.inflate(R.menu.settings_action_menu,menu)
+        activity?.menuInflater?.inflate(R.menu.settings_action_menu, menu)
     }
 }
