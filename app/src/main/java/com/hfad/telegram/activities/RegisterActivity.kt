@@ -26,7 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         mToolbar = binding.registerToolbar
         setSupportActionBar(mToolbar)
         title = getString(R.string.register_title_your_phone)
-        replaceFragment(EnterPhoneNumberFragment())
+        replaceFragment(EnterPhoneNumberFragment(), false)
     }
 
     override fun onDestroy() {
