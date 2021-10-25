@@ -4,9 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 import com.hfad.telegram.R
-import com.hfad.telegram.databinding.ActivityMainBinding
 import com.hfad.telegram.databinding.ActivityRegisterBinding
 import com.hfad.telegram.ui.fragments.EnterPhoneNumberFragment
+import com.hfad.telegram.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
     lateinit var mToolbar: Toolbar
@@ -26,8 +26,7 @@ class RegisterActivity : AppCompatActivity() {
         mToolbar = binding.registerToolbar
         setSupportActionBar(mToolbar)
         title = getString(R.string.register_title_your_phone)
-        supportFragmentManager.beginTransaction()
-            .add(R.id.registerDataContainer, EnterPhoneNumberFragment()).commit()
+        replaceFragment(EnterPhoneNumberFragment())
     }
 
     override fun onDestroy() {

@@ -16,7 +16,7 @@
         style="@style/mainToolbar" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/registerDataContainer"
+        android:id="@+id/dataContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBaseline_toBottomOf="parent"

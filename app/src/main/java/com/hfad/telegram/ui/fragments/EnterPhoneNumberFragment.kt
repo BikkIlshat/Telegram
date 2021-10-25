@@ -1,8 +1,9 @@
 package com.hfad.telegram.ui.fragments
 
-import android.widget.Toast
 import com.hfad.telegram.R
 import com.hfad.telegram.databinding.FragmentEnterPhoneNumberBinding
+import com.hfad.telegram.utilits.replaceFragment
+import com.hfad.telegram.utilits.showToast
 
 
 class EnterPhoneNumberFragment :
@@ -15,16 +16,14 @@ class EnterPhoneNumberFragment :
 
     private fun sendCode() = with(binding) {
         if (registerInputPhoneNumber.text.toString().isEmpty()) {
-            Toast.makeText(
-                activity,
-                getString(R.string.register_toast_enter_phone),
-                Toast.LENGTH_SHORT
-            ).show()
+            showToast(getString(R.string.register_toast_enter_phone)) //  сделали её вызов в файле расширений функций funs.kt
         } else {
-            parentFragmentManager.beginTransaction()
-                .replace(R.id.registerDataContainer, EnterCodeFragment())
-                .addToBackStack(null)
-                .commit()
+            replaceFragment(EnterCodeFragment())//  сделали её вызов в файле расширений функций funs.kt
+            //  тем самым не нужно городить:
+//            parentFragmentManager.beginTransaction()
+//                .replace(R.id.dataContainer, EnterCodeFragment())
+//                .addToBackStack(null)
+//                .commit()
         }
     }
 }
