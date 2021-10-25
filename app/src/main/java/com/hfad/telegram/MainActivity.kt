@@ -1,6 +1,5 @@
 package com.hfad.telegram
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -8,6 +7,8 @@ import com.hfad.telegram.activities.RegisterActivity
 import com.hfad.telegram.databinding.ActivityMainBinding
 import com.hfad.telegram.ui.fragments.ChatsFragment
 import com.hfad.telegram.ui.objects.AppDrawer
+import com.hfad.telegram.utilits.replaceActivity
+import com.hfad.telegram.utilits.replaceFragment
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,14 +34,13 @@ class MainActivity : AppCompatActivity() {
 
     // выполняем всю функциональность нашей активити
     private fun initFunc() {
-        if (false) { //  проверка если пользователь авторизовался выполняем код ниже:
+        if (true) { //  проверка если пользователь авторизовался выполняем код ниже:
             setSupportActionBar(mToolbar)
             mAppDrawer.create() // нарисовали выдвижное  меню
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.dataContainer, ChatsFragment()).commit()
+            replaceFragment(ChatsFragment()) // сделали её вызов в файле расширений функций funs.kt
         } else { // иначе переходим в окно авторизации пользователя
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            replaceActivity(RegisterActivity()) // сделали её вызов в файле расширений функций funs.kt
+
         }
 
     }
