@@ -9,6 +9,7 @@ import com.hfad.telegram.databinding.ActivityMainBinding
 import com.hfad.telegram.ui.fragments.ChatsFragment
 import com.hfad.telegram.ui.objects.AppDrawer
 import com.hfad.telegram.utilits.AUTH
+import com.hfad.telegram.utilits.initFirebase
 import com.hfad.telegram.utilits.replaceActivity
 import com.hfad.telegram.utilits.replaceFragment
 
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
     private fun initFields() {
         mToolbar = binding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar) // проинициализировали наше mToolbar
-        AUTH = FirebaseAuth.getInstance() // / проинициализировали наш FirebaseAuth
+        initFirebase() //  проинициализировали наш FirebaseAuth и REF_DATABASE_ROOT
     }
 
     override fun onDestroy() {
