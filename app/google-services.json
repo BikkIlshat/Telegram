@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "910004753510",
+    "firebase_url": "https://telegram-f39eb-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "telegram-f39eb",
+    "storage_bucket": "telegram-f39eb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910004753510:android:2649ce11428252575f89a7",
+        "android_client_info": {
+          "package_name": "com.hfad.telegram"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910004753510-ct6g8hrpg34popff4dbpc159ekl1q7qm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQgp0xykRt-DpFUdvbJSb-ND6okkGnd7M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "910004753510-ct6g8hrpg34popff4dbpc159ekl1q7qm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

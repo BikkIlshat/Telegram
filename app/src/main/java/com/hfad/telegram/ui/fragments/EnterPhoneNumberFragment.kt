@@ -27,21 +27,25 @@ class EnterPhoneNumberFragment :
         super.onStart()
         mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) { // метод проверяет если верификация правильная то он запускается credential - позволяет произвести авторизацию, и созданию нового пользователя
-                AUTH.signInWithCredential(credential).addOnCompleteListener { task -> // вешаем слушателя, что всё у нас хорошо
-                    if (task.isSuccessful) { // проверяем что задача (task) выполнена
-                        showToast("Добро пожаловать")
-                        (activity as RegisterActivity).replaceActivity(MainActivity())
-                    } else {
-                        showToast(task.exception?.message.toString())
+                AUTH.signInWithCredential(credential)
+                    .addOnCompleteListener { task -> // вешаем слушателя, что всё у нас хорошо
+                        if (task.isSuccessful) { // проверяем что задача (task) выполнена
+                            showToast("Добро пожаловать")
+                            (activity as RegisterActivity).replaceActivity(MainActivity())
+                        } else {
+                            showToast(task.exception?.message.toString())
+                        }
                     }
-                }
             }
 
             override fun onVerificationFailed(p0: FirebaseException) { // запускается когда проблема с верификацией или еще с чем нибудь
                 showToast(p0.message.toString())
             }
 
-            override fun onCodeSent(id: String, token: PhoneAuthProvider.ForceResendingToken) { // метод запускается тогда когда было отправлено смс
+            override fun onCodeSent(
+                id: String,
+                token: PhoneAuthProvider.ForceResendingToken
+            ) { // метод запускается тогда когда было отправлено смс
                 replaceFragment(EnterCodeFragment(mPhoneNumber, id))
             }
         }
