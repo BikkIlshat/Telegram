@@ -15,14 +15,6 @@
       },
       "oauth_client": [
         {
-          "client_id": "910004753510-qpq8g5t7nl6rd7tcef7t0mrjijgjden4.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.hfad.telegram",
-            "certificate_hash": "41648f5e65f7291f002853b69ab81a4d8cb61d51"
-          }
-        },
-        {
           "client_id": "910004753510-ct6g8hrpg34popff4dbpc159ekl1q7qm.apps.googleusercontent.com",
           "client_type": 3
         }

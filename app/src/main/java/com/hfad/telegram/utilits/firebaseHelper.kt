@@ -14,6 +14,8 @@ const val CHILD_USERNAME = "username"
 
 fun initFirebase(){
     AUTH = FirebaseAuth.getInstance()
-    REF_DATABASE_ROOT = FirebaseDatabase.getInstance().getReferenceFromUrl("https://telegram-f39eb-default-rtdb.europe-west1.firebasedatabase.app")
+    REF_DATABASE_ROOT = FirebaseDatabase
+        .getInstance("https://telegram-f39eb-default-rtdb.europe-west1.firebasedatabase.app")
+        .getReference()
 
 }
