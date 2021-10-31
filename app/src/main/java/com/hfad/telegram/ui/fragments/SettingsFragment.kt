@@ -9,6 +9,7 @@ import com.hfad.telegram.activities.RegisterActivity
 import com.hfad.telegram.databinding.FragmentSettingsBinding
 import com.hfad.telegram.utilits.AUTH
 import com.hfad.telegram.utilits.replaceActivity
+import com.hfad.telegram.utilits.replaceFragment
 
 class SettingsFragment :
     ViewBindingFragment<FragmentSettingsBinding>(FragmentSettingsBinding::inflate) {
@@ -28,6 +29,7 @@ class SettingsFragment :
                 AUTH.signOut() // обращаемся к объекту Аутентификации и выходим из профиля
                 (activity as MainActivity).replaceActivity(RegisterActivity()) // запускаем окно регистрации
             }
+            R.id.settings_menu_change_name -> replaceFragment(ChangeNameFragment()) // меняем фрагмент на ChangeNameFragment
         }
         return true
     }
