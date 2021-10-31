@@ -1,50 +1,33 @@
 package com.hfad.telegram.ui.fragments
 
-import android.os.Bundle
-import android.view.*
-import androidx.fragment.app.Fragment
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import com.hfad.telegram.MainActivity
 import com.hfad.telegram.R
 import com.hfad.telegram.databinding.FragmentChangeNameBinding
 import com.hfad.telegram.utilits.*
 
-/**
- * ChangeNameFragment не наследуется от абстрактного класса ViewBindingFragment по причине того, что
- * ChangeNameFragment должен жить своей жизнью и его поведение не должно быть такое же как и у остальных
- * фрагментов.
- */
+class ChangeNameFragment :
+    ViewBindingFragment<FragmentChangeNameBinding>(FragmentChangeNameBinding::inflate) {
 
-class ChangeNameFragment : Fragment() {
-
-    private var _binding: FragmentChangeNameBinding? = null
-    private val binding get() = _binding!!
-
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentChangeNameBinding.inflate(inflater, container, false)
-        return binding.root
-    }
 
     override fun onResume() = with(binding) {
         super.onResume()
         setHasOptionsMenu(true)
-        val fullnameList = USER.fullname.split(" ") // split() разделит нашу строку на 2 элемента и запишет это в fullnameList
+        val fullnameList =
+            USER.fullname.split(" ") // split() разделит нашу строку на 2 элемента и запишет это в fullnameList
         settingsInputName.setText(fullnameList[0])
         settingsInputSurname.setText(fullnameList[1])
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-       // if (activity is MainActivity)
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm,menu)
+        (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.settings_confirm_change -> changeName()
         }
         return true
@@ -53,7 +36,7 @@ class ChangeNameFragment : Fragment() {
     private fun changeName() = with(binding) {
         val name = settingsInputName.text.toString()
         val surname = settingsInputSurname.text.toString()
-        if(name.isEmpty()) {
+        if (name.isEmpty()) {
             showToast(getString(R.string.settings_toast_name_is_empty))
         } else {
             val fullname = "$name $surname"
@@ -65,13 +48,6 @@ class ChangeNameFragment : Fragment() {
                         parentFragmentManager.popBackStack()
                     }
                 }
-
         }
-
-    }
-
-    override fun onDestroyView() {
-        _binding = null
-        super.onDestroyView()
     }
 }

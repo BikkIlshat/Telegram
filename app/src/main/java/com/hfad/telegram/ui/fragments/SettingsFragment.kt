@@ -8,6 +8,7 @@ import com.hfad.telegram.R
 import com.hfad.telegram.activities.RegisterActivity
 import com.hfad.telegram.databinding.FragmentSettingsBinding
 import com.hfad.telegram.utilits.AUTH
+import com.hfad.telegram.utilits.USER
 import com.hfad.telegram.utilits.replaceActivity
 import com.hfad.telegram.utilits.replaceFragment
 
@@ -17,6 +18,16 @@ class SettingsFragment :
     override fun onResume() {
         super.onResume()
         setHasOptionsMenu(true)
+        initFields()
+
+    }
+    //Инициализация всех полей фрагмента настроек
+    private fun initFields() = with(binding) {
+        settingsBio.text = USER.bio
+        settingsFullName.text = USER.fullname
+        settingsPhoneNumber.text = USER.phone
+        settingsStatus.text = USER.status
+        settingsUsername.text = USER.username
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
