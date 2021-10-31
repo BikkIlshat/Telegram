@@ -1,9 +1,13 @@
 package com.hfad.telegram.ui.objects
 
 
+/**
+ * Класс управления navigation Drawer (боковое меню)
+ */
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.drawerlayout.widget.DrawerLayout
 import com.hfad.telegram.R
 import com.hfad.telegram.ui.fragments.SettingsFragment
 import com.hfad.telegram.utilits.replaceFragment
@@ -17,12 +21,35 @@ import com.mikepenz.materialdrawer.model.ProfileDrawerItem
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem
 
 class AppDrawer(val mainActivity: AppCompatActivity, val toolbar: Toolbar) {
-    lateinit var mDrawer: Drawer
-    lateinit var mHeader: AccountHeader
+    private lateinit var mDrawer: Drawer
+    private lateinit var mHeader: AccountHeader
+    private lateinit var mDrawerLayout: DrawerLayout
 
     fun create() {
         createHeader()
         createDrawer()
+        mDrawerLayout = mDrawer.drawerLayout
+    }
+
+    // Отключать Drawer
+    fun disableDrawer() {
+        mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = false // отключили "гамбургер"
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true) // влючить кнопку "назад"
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED) // заблокировали mDrawer
+        toolbar.setNavigationOnClickListener {
+            mainActivity.supportFragmentManager.popBackStack() //  возвращаемся по стеку (т.е. не важно какой у нас фрагмент мы просто вернёмся по стеку назад)
+        }
+
+    }
+
+    // Включить Drawer
+    fun enableDrawer() {
+        mainActivity.supportActionBar?.setDisplayHomeAsUpEnabled(false) // отключили кнопку "назад"
+        mDrawer.actionBarDrawerToggle?.isDrawerIndicatorEnabled = true // включили "гамбургер"
+        mDrawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED) // разблокировали mDrawer
+        toolbar.setNavigationOnClickListener {
+            mDrawer.openDrawer()
+        }
     }
 
     private fun createDrawer() {

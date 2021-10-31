@@ -3,7 +3,6 @@ package com.hfad.telegram
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.firebase.auth.FirebaseAuth
 import com.hfad.telegram.activities.RegisterActivity
 import com.hfad.telegram.databinding.ActivityMainBinding
 import com.hfad.telegram.ui.fragments.ChatsFragment
@@ -19,8 +18,8 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
 
 
-    lateinit var mToolbar: Toolbar
     lateinit var mAppDrawer: AppDrawer
+    private lateinit var mToolbar: Toolbar
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +39,10 @@ class MainActivity : AppCompatActivity() {
         if (AUTH.currentUser != null) { //  проверка если пользователь авторизовался выполняем код ниже:
             setSupportActionBar(mToolbar)
             mAppDrawer.create() // нарисовали выдвижное  меню
-            replaceFragment(ChatsFragment(), false) // сделали её вызов в файле расширений функций funs.kt
+            replaceFragment(
+                ChatsFragment(),
+                false
+            ) // сделали её вызов в файле расширений функций funs.kt
         } else { // иначе переходим в окно авторизации пользователя
             replaceActivity(RegisterActivity()) // сделали её вызов в файле расширений функций funs.kt
         }
