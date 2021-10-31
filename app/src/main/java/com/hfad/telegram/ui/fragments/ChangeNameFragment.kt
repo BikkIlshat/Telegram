@@ -15,10 +15,11 @@ class ChangeNameFragment :
     override fun onResume() = with(binding) {
         super.onResume()
         setHasOptionsMenu(true)
-        val fullnameList =
-            USER.fullname.split(" ") // split() разделит нашу строку на 2 элемента и запишет это в fullnameList
-        settingsInputName.setText(fullnameList[0])
-        settingsInputSurname.setText(fullnameList[1])
+        val fullnameList = USER.fullname.split(" ") // split() разделит нашу строку на 2 элемента и запишет это в fullnameList
+        if (fullnameList.size > 1) {
+            settingsInputName.setText(fullnameList[0])
+            settingsInputSurname.setText(fullnameList[1])
+        } else settingsInputName.setText(fullnameList[0])
     }
 
 
