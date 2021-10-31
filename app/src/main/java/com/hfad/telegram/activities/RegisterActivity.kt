@@ -10,6 +10,7 @@ import com.hfad.telegram.utilits.initFirebase
 import com.hfad.telegram.utilits.replaceFragment
 
 class RegisterActivity : AppCompatActivity() {
+
     lateinit var mToolbar: Toolbar
 
     private var _binding: ActivityRegisterBinding? = null
