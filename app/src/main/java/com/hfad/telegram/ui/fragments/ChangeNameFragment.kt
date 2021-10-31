@@ -29,9 +29,12 @@ class ChangeNameFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
+    override fun onResume() = with(binding) {
         super.onResume()
         setHasOptionsMenu(true)
+        val fullnameList = USER.fullname.split(" ") // split() разделит нашу строку на 2 элемента и запишет это в fullnameList
+        settingsInputName.setText(fullnameList[0])
+        settingsInputSurname.setText(fullnameList[1])
     }
 
 
