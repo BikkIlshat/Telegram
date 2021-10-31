@@ -28,6 +28,7 @@ class SettingsFragment :
         settingsPhoneNumber.text = USER.phone
         settingsStatus.text = USER.status
         settingsUsername.text = USER.username
+        settingsBtnChangeUsername.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
