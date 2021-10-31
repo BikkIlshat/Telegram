@@ -3,7 +3,10 @@ package com.hfad.telegram.utilits
 import android.text.Editable
 import android.text.TextWatcher
 
-class ApppTextWatcher(val onSuccess:(Editable?) -> Unit ) : TextWatcher{
+/**
+ * App - все модернизированные классы в нашем проекте  начинаются с App
+ */
+class AppTextWatcher(val onSuccess:(Editable?) -> Unit ) : TextWatcher{ // в конструкторе приняли  onSuccess которая принимает объект Editable
 
 
     override fun afterTextChanged(s: Editable?) {

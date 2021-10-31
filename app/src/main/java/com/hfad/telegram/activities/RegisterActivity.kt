@@ -9,9 +9,15 @@ import com.hfad.telegram.ui.fragments.EnterPhoneNumberFragment
 import com.hfad.telegram.utilits.initFirebase
 import com.hfad.telegram.utilits.replaceFragment
 
+/**
+ * RegisterActivity управлет фрагментами EnterCodeFragment и EnterPhoneNumberFragment
+ * задача этой Activity только в том что бы произвести авторизацию или зарегистрировать нового пользователя
+ * при вводе телефона который есть в базе данных происходит авторизация  пользователя
+ * при вводе нового номера телефона пользователя которого нет в базе данных происходит создание  нового пользователя
+ */
 class RegisterActivity : AppCompatActivity() {
 
-    lateinit var mToolbar: Toolbar
+    private lateinit var mToolbar: Toolbar
 
     private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!

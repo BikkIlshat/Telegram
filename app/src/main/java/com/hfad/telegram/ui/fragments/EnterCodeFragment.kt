@@ -15,7 +15,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
         super.onStart()
         (activity as RegisterActivity).title = phoneNumber
         // сделали апгрейд вызова данного метода  через лямбду в классе ApppTextWatcher:
-        registerInputCode.addTextChangedListener(ApppTextWatcher {
+        registerInputCode.addTextChangedListener(AppTextWatcher {
             val string = registerInputCode.text.toString()
             if (string.length >= 5) {
                 enterCode()
@@ -28,7 +28,7 @@ class EnterCodeFragment(val phoneNumber: String, val id: String) :
         val credential = PhoneAuthProvider.getCredential(
             id,
             code
-        ) // что бы произвести авторизацию  или создать нового пользователя мф должны получить объект credential
+        ) // что бы произвести авторизацию  или создать нового пользователя мы должны получить объект credential
         AUTH.signInWithCredential(credential)
             .addOnCompleteListener { task -> // вешаем слушателя, что всё у нас хорошо
                 if (task.isSuccessful) { // проверяем что задача (task) выполнена
