@@ -1,8 +1,7 @@
 package com.hfad.telegram.ui.fragments
 
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.os.Bundle
+import android.view.*
 import com.hfad.telegram.MainActivity
 import com.hfad.telegram.R
 import com.hfad.telegram.databinding.FragmentChangeUsernameBinding
@@ -16,33 +15,31 @@ import java.util.*
  * если такой логин уже существует выводим showToast("Такой пользователь уже существует") если нет showToast(getString(R.string.toast_data_update))
  *
  */
-class ChangeUsernameFragment :
-    ViewBindingFragment<FragmentChangeUsernameBinding>(FragmentChangeUsernameBinding::inflate) {
+class ChangeUsernameFragment : BaseChangeFragment() {
+
+    private var _binding: FragmentChangeUsernameBinding? = null
+    private val binding get() = _binding!!
 
     lateinit var mNewUsername: String
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentChangeUsernameBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
     override fun onResume() = with(binding) {
         super.onResume()
-        setHasOptionsMenu(true) // разрешаем создание OptionsMenu
         settingsInputUsername.setText(USER.username) // подтянули строе username в графу
     }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_confirm_change -> change() // как только пользователь нажимает на кнопочку "галочка", начинаем процедуру изменение Usernames
-        }
-        return true
-    }
-
 
     /*
     начинаем процедуру изменение Usernames
      */
-    private fun change() = with(binding) {
+    override fun change() = with(binding) {
         mNewUsername = settingsInputUsername.text.toString()
             .lowercase(Locale.getDefault()) // проинициализировали mNewUsername (lowercase - текст всегда строчный в Firebase Realtime Database)
         if (mNewUsername.isEmpty()) {
@@ -96,5 +93,10 @@ class ChangeUsernameFragment :
                     showToast(it.exception?.message.toString())
                 }
             }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

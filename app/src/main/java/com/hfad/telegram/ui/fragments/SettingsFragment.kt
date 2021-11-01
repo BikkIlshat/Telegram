@@ -29,6 +29,7 @@ class SettingsFragment :
         settingsStatus.text = USER.status
         settingsUsername.text = USER.username
         settingsBtnChangeUsername.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
+        settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) } // HW-19
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
