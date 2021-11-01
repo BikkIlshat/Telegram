@@ -1,20 +1,34 @@
 package com.hfad.telegram.ui.fragments
 
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
-import com.hfad.telegram.MainActivity
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.hfad.telegram.R
 import com.hfad.telegram.databinding.FragmentChangeNameBinding
 import com.hfad.telegram.utilits.*
 
-class ChangeNameFragment :
-    ViewBindingFragment<FragmentChangeNameBinding>(FragmentChangeNameBinding::inflate) {
+class ChangeNameFragment : BaseChangeFragment() {
 
+    private var _binding: FragmentChangeNameBinding? = null
+    private val binding get() = _binding!!
+
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = FragmentChangeNameBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onResume() = with(binding) {
         super.onResume()
-        setHasOptionsMenu(true)
+        initFullnameList()
+    }
+
+    private fun initFullnameList() = with(binding) {
         val fullnameList = USER.fullname.split(" ") // split() разделит нашу строку на 2 элемента и запишет это в fullnameList
         if (fullnameList.size > 1) {
             settingsInputName.setText(fullnameList[0])
@@ -22,19 +36,7 @@ class ChangeNameFragment :
         } else settingsInputName.setText(fullnameList[0])
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        (activity as MainActivity).menuInflater.inflate(R.menu.settings_menu_confirm, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings_confirm_change -> changeName()
-        }
-        return true
-    }
-
-    private fun changeName() = with(binding) {
+    override fun change(): Unit = with(binding) {
         val name = settingsInputName.text.toString()
         val surname = settingsInputSurname.text.toString()
         if (name.isEmpty()) {
@@ -50,5 +52,10 @@ class ChangeNameFragment :
                     }
                 }
         }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
     }
 }

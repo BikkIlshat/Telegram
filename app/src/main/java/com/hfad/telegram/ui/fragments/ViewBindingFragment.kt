@@ -31,14 +31,12 @@ abstract class ViewBindingFragment<T : ViewBinding>(
 
     override fun onStart() {
         super.onStart()
-        if (activity is MainActivity)
-            (activity as MainActivity).mAppDrawer.disableDrawer() // как только запускается базовый фрагмент т.е. любой фрагмент отличный от ChatsFragment то у нас запустится этот код и соответственно отключит наш драйвер
+
     }
 
     override fun onStop() {
         super.onStop()
-        if (activity is MainActivity)
-            (activity as MainActivity).mAppDrawer.enableDrawer()
+
     }
 
     override fun onDestroyView() {
