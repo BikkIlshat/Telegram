@@ -100,26 +100,6 @@ class MainActivity : AppCompatActivity() {
         override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
             return CropImage.getActivityResult(intent)?.uri
         }
-
-//    // перехватываем активаити для fun  changePhotoUser()
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE
-//            && resultCode == RESULT_OK && data != null
-//        ) {
-//            val uri =
-//                CropImage.getActivityResult(data).uri // получаем uri(уникальный идентификатор ресурса) на нашу картинку
-//            val path =
-//                REF_STORAGE_ROOT.child(FOLD_PROFILE_IMAGE) // если этой папки нет он е создаст
-//                    .child(CURRENT_UID) // val path = ....  прописали путь куда мы будем ложить наш файл
-//            path.putFile(uri).addOnCompleteListener {
-//                if (it.isSuccessful) {
-//                    showToast(getString(R.string.toast_data_update))
-//                }
-//            }
-//        }
-//    }
-
     }
 
 
@@ -133,6 +113,4 @@ class MainActivity : AppCompatActivity() {
         _binding = null
         super.onDestroy()
     }
-
-
 }
