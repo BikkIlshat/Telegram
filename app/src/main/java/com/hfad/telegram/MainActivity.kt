@@ -32,8 +32,11 @@ class MainActivity : AppCompatActivity() {
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         APP_ACTIVITY = this // присвоили нашей константе ссылку на MainActivity (HW-20)
-        initFields()
-        initFunc()
+        initFirebase() //  проинициализировали наш FirebaseAuth и REF_DATABASE_ROOT
+        initUser { // как проинициализируется User только потом выполнится initFields() initFunc()
+            initFields()
+            initFunc()
+        }
     }
 
     // выполняем всю функциональность нашей активити
@@ -55,19 +58,9 @@ class MainActivity : AppCompatActivity() {
     private fun initFields() {
         mToolbar = binding.mainToolbar
         mAppDrawer = AppDrawer(this, mToolbar) // проинициализировали наше mToolbar
-        initFirebase() //  проинициализировали наш FirebaseAuth и REF_DATABASE_ROOT
-        initUser()
+
     }
 
-    private fun initUser() {
-        REF_DATABASE_ROOT // Realtime Database root - > telegram-f39eb
-            .child(NODE_USERS)  // Realtime Database - > users
-            .child(CURRENT_UID) // Realtime Database - >  SQvMtyLe6lNU9V55H8N1vQoAUdN2
-            .addListenerForSingleValueEvent(AppValueEventListener {
-                USER = it.getValue(User::class.java)
-                    ?: User() // ЭлвисОператор  выполняем  код it.getValue(User::class.java) если он не null. Если null он выполнит этот код -> User()
-            })
-    }
 
     override fun onDestroy() {
         _binding = null
