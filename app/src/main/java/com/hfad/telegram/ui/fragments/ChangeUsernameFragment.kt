@@ -2,7 +2,6 @@ package com.hfad.telegram.ui.fragments
 
 import android.os.Bundle
 import android.view.*
-import com.hfad.telegram.MainActivity
 import com.hfad.telegram.R
 import com.hfad.telegram.databinding.FragmentChangeUsernameBinding
 import com.hfad.telegram.utilits.*
@@ -60,7 +59,7 @@ class ChangeUsernameFragment : BaseChangeFragment() {
         REF_DATABASE_ROOT // Realtime Database root - > telegram-f39eb
             .child(NODE_USERNAMES)
             .child(mNewUsername)
-            .setValue(UID)
+            .setValue(CURRENT_UID)
             .addOnCompleteListener {
                 if (it.isSuccessful) {
                     updateCurrentUsername()
@@ -69,7 +68,7 @@ class ChangeUsernameFragment : BaseChangeFragment() {
     }
 
     private fun updateCurrentUsername() {
-        REF_DATABASE_ROOT.child(NODE_USERS).child(UID).child(CHILD_USERNAME)
+        REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID).child(CHILD_USERNAME)
             .setValue(mNewUsername)
             .addOnCompleteListener {
                 if (it.isSuccessful) {

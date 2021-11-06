@@ -23,7 +23,7 @@ class EnterPhoneNumberFragment :
     private lateinit var mCallback: PhoneAuthProvider.OnVerificationStateChangedCallbacks
 
 
-    override fun onStart() {
+    override fun onStart() = with(binding) {
         super.onStart()
         mCallback = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             override fun onVerificationCompleted(credential: PhoneAuthCredential) { // метод проверяет если верификация правильная то он запускается credential - позволяет произвести авторизацию, и созданию нового пользователя
@@ -49,7 +49,7 @@ class EnterPhoneNumberFragment :
                 replaceFragment(EnterCodeFragment(mPhoneNumber, id))
             }
         }
-        binding.registerBtnNext.setOnClickListener { sendCode() }
+        registerBtnNext.setOnClickListener { sendCode() }
     }
 
     private fun sendCode() = with(binding) {
