@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import com.hfad.telegram.MainActivity
 import com.hfad.telegram.R
 import com.hfad.telegram.utilits.APP_ACTIVITY
+import com.hfad.telegram.utilits.hideKeyboard
 
 open class BaseChangeFragment : Fragment() {
 
@@ -22,7 +23,7 @@ open class BaseChangeFragment : Fragment() {
         super.onStop()
         if (activity is MainActivity)
             APP_ACTIVITY.mAppDrawer.enableDrawer()
-        APP_ACTIVITY.hideKeyboard()
+        hideKeyboard()
     }
 
 
