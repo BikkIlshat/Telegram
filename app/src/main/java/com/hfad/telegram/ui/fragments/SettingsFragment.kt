@@ -43,8 +43,8 @@ class SettingsFragment :
         settingsBtnChangeUsername.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
         settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) } // HW-19
         settingsChangePhoto.setOnClickListener { changePhotoUser() }
+        binding.settingsUserPhoto.downloadAndSetImage(USER.photoUrl)
     }
-
 
     private fun cropActivityResultLauncher() {
         cropActivityResultLauncher = registerForActivityResult(cropActivityResultContract) {
@@ -53,21 +53,12 @@ class SettingsFragment :
                     REF_STORAGE_ROOT
                         .child(FOLD_PROFILE_IMAGE)
                         .child(CURRENT_UID)
-                path.putFile(uri).addOnCompleteListener { task1 ->
-                    if (task1.isSuccessful) {
-                        path.downloadUrl.addOnCompleteListener { task2 ->
-                            if (task2.isSuccessful) {
-                                val photoUrl = task2.result.toString()
-                                REF_DATABASE_ROOT.child(NODE_USERS).child(CURRENT_UID)
-                                    .child(CHILD_PHOTO_URL).setValue(photoUrl)
-                                    .addOnCompleteListener { task3 ->
-                                        if (task3.isSuccessful) {
-                                            binding.settingsUserPhoto.downloadAndSetImage(photoUrl)
-                                            showToast(getString(R.string.toast_data_update))
-                                            USER.photoUrl = photoUrl
-                                        }
-                                    }
-                            }
+                putImageToStorage(uri, path) {
+                    getUrlFromStorage(path) {
+                        putUrlToDatabase(it) {
+                            binding.settingsUserPhoto.downloadAndSetImage(it) // Обновляем картинку нашего пользователя
+                            showToast(getString(R.string.toast_data_update))
+                            USER.photoUrl = it
                         }
                     }
                 }
@@ -75,11 +66,9 @@ class SettingsFragment :
         }
     }
 
-
     private fun changePhotoUser() {
         cropActivityResultLauncher.launch(null)
     }
-
 
     private val cropActivityResultContract = object : ActivityResultContract<Any?, Uri?>() {
         override fun createIntent(context: Context, input: Any?): Intent {
@@ -109,5 +98,4 @@ class SettingsFragment :
         }
         return true
     }
-
 }
