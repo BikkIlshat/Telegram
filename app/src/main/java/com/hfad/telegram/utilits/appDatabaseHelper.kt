@@ -41,6 +41,8 @@ fun initFirebase() {
 
 }
 
+
+
 // inline  crossinline -> избегаем потери по производительности
 inline fun putUrlToDatabase(url: String, crossinline function: () -> Unit) {
     REF_DATABASE_ROOT.child(NODE_USERS)
@@ -62,4 +64,17 @@ inline fun putImageToStorage(uri: Uri, path: StorageReference, crossinline funct
     path.putFile(uri)
         .addOnSuccessListener { function() }
         .addOnFailureListener { showToast(it.message.toString()) } // сделали вызов через живой шаблон (File | Settings | Editor | Live Templates)
+}
+
+inline fun initUser( crossinline function: () -> Unit) {
+    REF_DATABASE_ROOT // Realtime Database root - > telegram-f39eb
+        .child(NODE_USERS)  // Realtime Database - > users
+        .child(CURRENT_UID) // Realtime Database - >  SQvMtyLe6lNU9V55H8N1vQoAUdN2
+        .addListenerForSingleValueEvent(AppValueEventListener {
+            USER = it.getValue(User::class.java) ?: User() // ЭлвисОператор  выполняем  код it.getValue(User::class.java) если он не null. Если null он выполнит этот код -> User()
+            if (USER.username.isEmpty()) {
+                USER.username = CURRENT_UID
+            }
+            function()
+        })
 }

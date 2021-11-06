@@ -59,6 +59,7 @@ class SettingsFragment :
                             binding.settingsUserPhoto.downloadAndSetImage(it) // Обновляем картинку нашего пользователя
                             showToast(getString(R.string.toast_data_update))
                             USER.photoUrl = it
+                            APP_ACTIVITY.mAppDrawer.updateHeder()
                         }
                     }
                 }

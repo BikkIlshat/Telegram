@@ -48,6 +48,7 @@ class ChangeNameFragment : BaseChangeFragment() {
                     if (it.isSuccessful) {
                         showToast(getString(R.string.toast_data_update))
                         USER.fullname = fullname
+                        APP_ACTIVITY.mAppDrawer.updateHeder()
                         parentFragmentManager.popBackStack()
                     }
                 }
