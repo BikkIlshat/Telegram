@@ -21,24 +21,16 @@ import com.theartofdev.edmodo.cropper.CropImageView
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var cropActivityResultLauncher: ActivityResultLauncher<Any?>
-
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
 
-
     lateinit var mAppDrawer: AppDrawer
     private lateinit var mToolbar: Toolbar
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-    }
-
-    override fun onStart() {
-        super.onStart()
         APP_ACTIVITY = this // присвоили нашей константе ссылку на MainActivity (HW-20)
         initFields()
         initFunc()
@@ -56,32 +48,7 @@ class MainActivity : AppCompatActivity() {
         } else { // иначе переходим в окно авторизации пользователя
             replaceActivity(RegisterActivity()) // сделали её вызов в файле расширений функций funs.kt
         }
-        cropActivityResultLauncher = registerForActivityResult(cropActivityResultContract) {
-            it?.let { uri ->
-                val path: StorageReference = REF_STORAGE_ROOT.child(FOLD_PROFILE_IMAGE)
-                    .child(CURRENT_UID)
-                path.putFile(uri).addOnCompleteListener { task1 ->
-                    if (task1.isSuccessful) {
-                        path.downloadUrl.addOnCompleteListener { task2 ->
-                            if (task2.isSuccessful) {
-                                val photoUrl = task2.result.toString()
-                                REF_DATABASE_ROOT
-                                    .child(NODE_USERS)
-                                    .child(CURRENT_UID)
-                                    .child(CHILD_PHOTO_URL)
-                                    .setValue(photoUrl)
-                                    .addOnCompleteListener { task3 ->
-                                        if (task3.isSuccessful) {
-                                            showToast(getString(R.string.toast_data_update))
-                                            USER.photoUrl = photoUrl
-                                        }
-                                    }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+
     }
 
 
@@ -102,28 +69,9 @@ class MainActivity : AppCompatActivity() {
             })
     }
 
-    private val cropActivityResultContract = object : ActivityResultContract<Any?, Uri?>() {
-        override fun createIntent(context: Context, input: Any?): Intent {
-            return CropImage.activity()
-                .setAspectRatio(1, 1)
-                .setRequestedSize(600, 600)
-                .setCropShape(CropImageView.CropShape.OVAL)
-                .getIntent(this@MainActivity)
-        }
-        override fun parseResult(resultCode: Int, intent: Intent?): Uri? {
-            return CropImage.getActivityResult(intent)?.uri
-        }
-    }
-
-
-    fun hideKeyboard() {
-        val imm: InputMethodManager =
-            getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow(window.decorView.windowToken, 0)
-    }
-
     override fun onDestroy() {
         _binding = null
         super.onDestroy()
     }
+
 }
