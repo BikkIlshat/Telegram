@@ -38,7 +38,7 @@ class SettingsFragment :
         settingsBio.text = USER.bio
         settingsFullName.text = USER.fullname
         settingsPhoneNumber.text = USER.phone
-        settingsStatus.text = USER.status
+        settingsStatus.text = USER.state
         settingsUsername.text = USER.username
         settingsBtnChangeUsername.setOnClickListener { replaceFragment(ChangeUsernameFragment()) }
         settingsBtnChangeBio.setOnClickListener { replaceFragment(ChangeBioFragment()) } // HW-19

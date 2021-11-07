@@ -10,9 +10,10 @@ data class User(
     var username: String = "",
     var bio: String = "",
     var fullname: String = "",
-    var status: String = "",
+    var state: String = "",
     var phone: String = "",
-    var photoUrl: String = "" // фото будем хранить ссылкой на storage (храним фото не в самой базе данных, потому, что это не целесообразно, а мы там будем хранить ссылку)
+    var photoUrl: String = "empty" // фото будем хранить ссылкой на storage (храним фото не в самой базе данных, потому, что это не целесообразно, а мы там будем хранить ссылку)
 // а само фото будет храниться в том же Firebase в разделе storage
+
 
 )
