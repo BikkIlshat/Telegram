@@ -1,23 +1,15 @@
 package com.hfad.telegram
 
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.inputmethod.InputMethodManager
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.google.firebase.storage.StorageReference
+import androidx.core.content.ContextCompat
 import com.hfad.telegram.activities.RegisterActivity
 import com.hfad.telegram.databinding.ActivityMainBinding
-import com.hfad.telegram.models.User
 import com.hfad.telegram.ui.fragments.ChatsFragment
 import com.hfad.telegram.ui.objects.AppDrawer
 import com.hfad.telegram.utilits.*
-import com.theartofdev.edmodo.cropper.CropImage
-import com.theartofdev.edmodo.cropper.CropImageView
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,8 +26,15 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this // присвоили нашей константе ссылку на MainActivity (HW-20)
         initFirebase() //  проинициализировали наш FirebaseAuth и REF_DATABASE_ROOT
         initUser { // как проинициализируется User только потом выполнится initFields() initFunc()
+            initContacts()
             initFields()
             initFunc()
+        }
+    }
+
+    private fun initContacts() {
+        if (checkPermission(READ_CONTACNTS)) {
+            showToast("чтение контактов")
         }
     }
 
@@ -70,6 +69,22 @@ class MainActivity : AppCompatActivity() {
         super.onStop()
         AppStates.updateState(AppStates.OFFLINE)
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (ContextCompat.checkSelfPermission(
+                APP_ACTIVITY,
+                READ_CONTACNTS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            initContacts()
+        }
+    }
+
 
     override fun onDestroy() {
         _binding = null

@@ -8,6 +8,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.hfad.telegram.models.User
 
+
 lateinit var AUTH: FirebaseAuth
 lateinit var CURRENT_UID: String
 lateinit var REF_DATABASE_ROOT: DatabaseReference //получаем рутовую ссылку
