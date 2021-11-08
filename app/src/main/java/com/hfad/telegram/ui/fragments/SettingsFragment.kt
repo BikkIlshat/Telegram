@@ -71,6 +71,7 @@ class SettingsFragment :
         cropActivityResultLauncher.launch(null)
     }
 
+
     private val cropActivityResultContract = object : ActivityResultContract<Any?, Uri?>() {
         override fun createIntent(context: Context, input: Any?): Intent {
             return CropImage.activity()

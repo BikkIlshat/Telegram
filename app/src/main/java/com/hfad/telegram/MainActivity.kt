@@ -2,6 +2,7 @@ package com.hfad.telegram
 
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
@@ -10,8 +11,9 @@ import com.hfad.telegram.databinding.ActivityMainBinding
 import com.hfad.telegram.ui.fragments.ChatsFragment
 import com.hfad.telegram.ui.objects.AppDrawer
 import com.hfad.telegram.utilits.*
+import kotlinx.coroutines.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
@@ -26,16 +28,20 @@ class MainActivity : AppCompatActivity() {
         APP_ACTIVITY = this // присвоили нашей константе ссылку на MainActivity (HW-20)
         initFirebase() //  проинициализировали наш FirebaseAuth и REF_DATABASE_ROOT
         initUser { // как проинициализируется User только потом выполнится initFields() initFunc()
-            initContacts()
+            CoroutineScope(Dispatchers.IO).launch {
+                Looper.prepare()
+                initContacts()
+            }
             initFields()
             initFunc()
         }
     }
 
+
     private fun initContacts() {
-        if (checkPermission(READ_CONTACNTS)) {
-            showToast("чтение контактов")
-        }
+                if (checkPermission(READ_CONTACNTS)) {
+                    showToast("чтение контактов")
+                }
     }
 
     // выполняем всю функциональность нашей активити
@@ -65,10 +71,6 @@ class MainActivity : AppCompatActivity() {
         AppStates.updateState(AppStates.ONLINE)
     }
 
-    override fun onStop() {
-        super.onStop()
-        AppStates.updateState(AppStates.OFFLINE)
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -85,6 +87,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        AppStates.updateState(AppStates.OFFLINE)
+    }
 
     override fun onDestroy() {
         _binding = null
